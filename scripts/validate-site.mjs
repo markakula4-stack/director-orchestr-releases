@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { resolve, relative } from 'node:path';
 import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 
 export const root = resolve('site');
 export const repo = 'https://github.com/markakula4-stack/director-orchestr-releases';
@@ -32,15 +33,23 @@ const version = /^([0-9]+\.[0-9]+\.[0-9]+)-preview$/.exec(metadata.versionName);
 assert(version, 'Expected explicit preview version');
 assert.equal(parts[1], 'Director-Orchestrator-' + version[1] + (metadata.variant === 'core' ? '-core-preview.apk' : '-preview.apk'));
 assert.equal(metadata.releaseUrl, repo + '/releases/tag/' + parts[0]);
+export const downloadPath = '/downloads/' + parts[1];
+assert.equal(metadata.downloadUrl, 'https://director-orchestr.pages.dev' + downloadPath);
+const digest = bytes => createHash('sha256').update(bytes).digest('hex');
+const mirror = read('.' + downloadPath);
+assert.equal(mirror.length, metadata.sizeBytes, 'Direct APK size differs.');
+assert.equal(digest(mirror), metadata.sha256, 'Direct APK checksum differs.');
 const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
 assert.equal(ids.length, new Set(ids).size, 'Duplicate HTML IDs');
 const anchors = [...html.matchAll(/<a\b[^>]*\bhref="([^"]+)"[^>]*>/g)];
 const downloads = anchors.filter(m => m[1].endsWith('.apk'));
-assert.equal(downloads.length, 5, 'Expected five APK download buttons');
-for (const a of downloads) {
-  assert.equal(a[1], metadata.apkUrl);
-  assert(!/\sdownload(?:\s|=|>)/.test(a[0]), 'Cross-origin downloads rely on the server attachment header');
-}
+const direct = downloads.filter(a => a[1] === downloadPath);
+const backup = downloads.filter(a => a[1] === metadata.apkUrl);
+assert.equal(direct.length, 5, 'Expected five direct APK download buttons');
+assert.equal(backup.length, 1, 'Expected one GitHub fallback download');
+assert.equal(downloads.length, direct.length + backup.length, 'Unexpected APK link');
+for (const a of direct) assert(a[0].includes('download="' + parts[1] + '"'), 'Direct download filename is missing');
+assert(!/\sdownload(?:\s|=|>)/.test(backup[0][0]), 'Cross-origin backup relies on attachment headers');
 assert(anchors.some(a => a[1] === metadata.releaseUrl));
 for (const a of anchors) {
   if (a[1].startsWith('#') && a[1] !== '#') assert(ids.includes(a[1].slice(1)), 'Missing anchor: ' + a[1]);
@@ -57,11 +66,19 @@ function walk(dir) {
 }
 export const files = walk(root);
 for (const path of files) {
-  assert(!/\.(apk|pem|key|env)$/i.test(path), 'Unexpected file in the website');
+  assert(!/\.(pem|key|env)$/i.test(path), 'Unexpected file in the website');
+  if (path.endsWith('.apk')) {
+    const name = relative(root, path).split('\\').join('/');
+    const match = /^downloads\/(Director-Orchestrator-(\d+\.\d+\.\d+)(?:-core)?-preview\.apk)$/.exec(name);
+    assert(match, 'APK is outside the approved download directory');
+    const original = readFileSync(resolve('releases', 'v' + match[2] + '-preview', match[1]));
+    assert.equal(digest(readFileSync(path)), digest(original), 'Mirror differs from original APK: ' + name);
+  }
   if (path.endsWith('.js')) execFileSync(process.execPath, ['--check', path], { stdio: 'pipe' });
 }
 const oldPath = '/downloads/Director-Orchestrator-0.2.0-core-preview.apk';
 assert(read('_redirects').toString().split('\n').some(line => line.startsWith(oldPath + ' https://github.com/markakula4-stack/director-orchestr-releases/releases/download/v0.2.0-preview/')));
 assert(read('_headers').toString().includes('Content-Security-Policy:'));
-console.log('Validated ' + files.length + ' site files, five APK links and release metadata.');
+assert(read('_headers').toString().includes('/downloads/:filename\n  Content-Type: application/vnd.android.package-archive\n  Content-Disposition: attachment; filename=":filename"'));
+console.log('Validated ' + files.length + ' site files, five direct APK links, GitHub fallback and byte-identical mirror.');
 
