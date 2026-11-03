@@ -1,25 +1,25 @@
 {
   "schemaVersion": 1,
   "applicationId": "app.hashqueue",
-  "variant": "core",
+  "variant": "director",
   "channel": "preview",
-  "versionName": "0.3.1-preview",
-  "versionCode": 4,
+  "versionName": "0.4.0-preview",
+  "versionCode": 5,
   "minSdkVersion": 26,
   "releaseDate": "2026-11-03",
-  "apkUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/download/v0.3.1-preview/Director-Orchestrator-0.3.1-core-preview.apk",
-  "sizeBytes": 41590,
-  "sha256": "8d24a7428fbb4a2cb757630aa971e580e5895fc2d8eb84ce3f93528440a5f614",
+  "apkUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/download/v0.4.0-preview/Director-Orchestrator-0.4.0-preview.apk",
+  "sizeBytes": 57974,
+  "sha256": "d27b3d19c5a48479b423e66f33e252539bf749e277997ca938cb35e93e80c790",
   "changelog": [
-    "Редактор плана: до 20 команд и 8 000 символов в каждом шаге",
-    "Обновлённый интерфейс: очередь, журнал и сведения о проекте",
-    "Исправление утечки окна при пересоздании экрана; повторная проверка ещё нужна"
+    "Glass 04: светлый нативный интерфейс, тонкие матовые кнопки и компактный план",
+    "Включаемая автоочередь для открытого ChatGPT через специальные возможности Android",
+    "До 20 команд, ручной режим, пауза, журнал и сохранение прогресса"
   ],
   "limitations": [
-    "Автоотправки в этой сборке нет",
-    "Используется тестовая подпись",
-    "Полный прогон Android-тестов и проверка исправления ещё не завершены",
-    "Установка на realme ещё не подтверждена"
+    "Автоочередь экспериментальная: проверка на Android 16/realme ещё нужна",
+    "Для автоочереди ChatGPT должен быть открыт, телефон — разблокирован",
+    "Неизвестный исход отправки останавливает очередь без автоматического повтора",
+    "Используется прежняя тестовая подпись; мини-ИИ не реализован"
   ],
-  "releaseUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/tag/v0.3.1-preview"
+  "releaseUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/tag/v0.4.0-preview"
 }

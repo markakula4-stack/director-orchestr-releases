@@ -72,3 +72,30 @@ test('an existing stable release is not changed into a preview', async () => {
   await assert.rejects(publishRelease({ ...base, request: async () => { calls++; return response({ ...release, prerelease: false }); } }), /different channel/);
   assert.equal(calls, 1);
 });
+
+
+test('integrated Director preview publishes only its exact filename', async () => {
+  const tag = 'v0.4.0-preview';
+  const name = 'Director-Orchestrator-0.4.0-preview.apk';
+  const url = `https://github.com/${repo}/releases/download/${tag}/${name}`;
+  const nextMetadata = { ...metadata, variant: 'director', versionName: '0.4.0-preview', apkUrl: url };
+  const nextRelease = { ...release, tag_name: tag, assets: [{ ...asset, name, browser_download_url: url }] };
+  let calls = 0;
+  const result = await publishRelease({ ...base, metadata: nextMetadata, request: async (_url, options) => {
+    calls++; assert.equal(options.method, undefined); return response(nextRelease);
+  } });
+  assert.equal(calls, 1);
+  assert.equal(result.apkUrl, url);
+});
+
+test('integrated variant cannot accidentally release a core-only APK link', async () => {
+  await assert.rejects(publishRelease({ ...base, metadata: { ...metadata, variant: 'director' }, request: async () => {
+    throw new Error('Network must not be used');
+  } }), /AssertionError/);
+});
+
+test('unknown transport variants are rejected before network access', async () => {
+  await assert.rejects(publishRelease({ ...base, metadata: { ...metadata, variant: 'unknown' }, request: async () => {
+    throw new Error('Network must not be used');
+  } }), /Unsupported preview variant/);
+});

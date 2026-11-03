@@ -11,11 +11,12 @@ export async function publishRelease({ metadata, artifact, notes, repo, commit, 
   assert.match(commit ?? '', /^[a-f0-9]{40}$/);
   assert(token, 'Missing GITHUB_TOKEN.');
   assert.equal(metadata.channel, 'preview');
-  assert.equal(metadata.variant, 'core');
+  assert(['core', 'director'].includes(metadata.variant), 'Unsupported preview variant.');
   const version = /^([0-9]+\.[0-9]+\.[0-9]+)-preview$/.exec(metadata.versionName);
-  assert(version, 'Only explicit core preview releases are supported.');
+  assert(version, 'Only explicit preview releases are supported.');
   const tag = 'v' + metadata.versionName;
-  const filename = 'Director-Orchestrator-' + version[1] + '-core-preview.apk';
+  const suffix = metadata.variant === 'core' ? '-core-preview.apk' : '-preview.apk';
+  const filename = 'Director-Orchestrator-' + version[1] + suffix;
   const expectedUrl = `https://github.com/${repo}/releases/download/${tag}/${filename}`;
   assert.equal(metadata.apkUrl, expectedUrl);
   assert.equal(artifact.length, metadata.sizeBytes, 'Local APK size differs.');
