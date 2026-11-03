@@ -62,6 +62,11 @@ for (let attempt = 1; attempt <= 6; attempt++) {
     assert.equal(redirect.status, 302, 'The old APK URL must redirect to GitHub.');
     const expectedOldUrl = readFileSync(root + '/_redirects', 'utf8').split('\n').find(line => line.startsWith('/downloads/Director-Orchestrator-0.2.0-core-preview.apk ')).trim().split(/\s+/)[1];
     assert.equal(redirect.headers.get('location'), expectedOldUrl);
+    const withdrawn = await get('/downloads/Director-Orchestrator-0.4.6-preview.apk', { redirect: 'manual' });
+    assert.equal(withdrawn.status, 302, 'Withdrawn 0.4.6 must redirect to the restored APK.');
+    const restored = new URL(withdrawn.headers.get('location'), origin);
+    assert.equal(restored.pathname, downloadPath, 'Withdrawn version still points to another file.');
+    console.log('Withdrawn 0.4.6 URL redirects to restored 0.4.5 APK.');
     // Use the exact customer-facing URL, not just the deploy-marker URL.
     const head = await fetch(metadata.downloadUrl, { method: 'HEAD', redirect: 'manual',
       headers: { 'Accept-Encoding': 'identity' }, signal: AbortSignal.timeout(20000) });

@@ -14,7 +14,7 @@ export async function publishRelease({ metadata, artifact, notes, repo, commit, 
   assert.equal(metadata.channel, 'preview');
   assert.notEqual(metadata.versionName, '0.4.6-preview', '0.4.6 was withdrawn by its owner.');
   assert(['core', 'director'].includes(metadata.variant), 'Unsupported preview variant.');
-  const version = /^([0-9]+\.[0-9]+\.[0-9]+)-preview$/.exec(metadata.versionName);
+  const version = /^([0-9]+\.[0-9]+\.[0-9]+(?:-restore)?)-preview$/.exec(metadata.versionName);
   assert(version, 'Only explicit preview releases are supported.');
   const tag = 'v' + metadata.versionName;
   const suffix = metadata.variant === 'core' ? '-core-preview.apk' : '-preview.apk';

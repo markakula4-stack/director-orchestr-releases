@@ -29,7 +29,7 @@ assert(metadata.apkUrl.startsWith(prefix));
 const parts = metadata.apkUrl.slice(prefix.length).split('/');
 assert.equal(parts.length, 2);
 assert.equal(parts[0], 'v' + metadata.versionName);
-const version = /^([0-9]+\.[0-9]+\.[0-9]+)-preview$/.exec(metadata.versionName);
+const version = /^([0-9]+\.[0-9]+\.[0-9]+(?:-restore)?)-preview$/.exec(metadata.versionName);
 assert(version, 'Expected explicit preview version');
 assert.equal(parts[1], 'Director-Orchestrator-' + version[1] + (metadata.variant === 'core' ? '-core-preview.apk' : '-preview.apk'));
 assert.equal(metadata.releaseUrl, repo + '/releases/tag/' + parts[0]);
@@ -69,7 +69,7 @@ for (const path of files) {
   assert(!/\.(pem|key|env)$/i.test(path), 'Unexpected file in the website');
   if (path.endsWith('.apk')) {
     const name = relative(root, path).split('\\').join('/');
-    const match = /^downloads\/(Director-Orchestrator-(\d+\.\d+\.\d+)(?:-core)?-preview\.apk)$/.exec(name);
+    const match = /^downloads\/(Director-Orchestrator-(\d+\.\d+\.\d+(?:-restore)?)(?:-core)?-preview\.apk)$/.exec(name);
     assert(match, 'APK is outside the approved download directory');
     const original = readFileSync(resolve('releases', 'v' + match[2] + '-preview', match[1]));
     assert.equal(digest(readFileSync(path)), digest(original), 'Mirror differs from original APK: ' + name);

@@ -3,27 +3,25 @@
   "applicationId": "app.hashqueue",
   "variant": "director",
   "channel": "preview",
-  "versionName": "0.4.5-preview",
-  "versionCode": 10,
+  "versionName": "0.4.5-restore-preview",
+  "versionCode": 12,
   "minSdkVersion": 26,
-  "releaseDate": "2026-11-03",
-  "apkUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/download/v0.4.5-preview/Director-Orchestrator-0.4.5-preview.apk",
-  "sizeBytes": 90742,
-  "sha256": "eaa144d843b7e1cc54a5c2762d0eb2914306cccf34937d77a4988a2d267837fa",
+  "releaseDate": "2026-11-04",
+  "apkUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/download/v0.4.5-restore-preview/Director-Orchestrator-0.4.5-restore-preview.apk",
+  "sizeBytes": 94838,
+  "sha256": "e1bc391e767c03a1acd97b5ab380240ad41ee27c3680b18f30f498bd9964d6ab",
   "changelog": [
-    "Обычный новый план отправляет точный текст без служебной приписки",
-    "Исправлен поиск длинного поля ввода и вложенной кнопки отправки, убрана ложная пауза при появлении клавиатуры",
-    "Автопереход по новому завершённому ответу; защита от старого ответа после прокрутки",
-    "Удержание экрана при открытой панели, включая паузу",
-    "Меньше чтений интерфейса и перерисовок; пресет задержек 3 / 3 / 0"
+    "Возвращена логика отправки и распознавания из 0.4.5; изменения 0.4.6 отменены",
+    "Под кнопкой открытия чата — выбор «Вручную» или «Автоматически» после ответа",
+    "Выбор сохраняется вместе с остальными настройками и сам не запускает очередь",
+    "Внутренний номер сборки 12 и прежняя подпись позволяют обновить установленную 0.4.6 без удаления приложения"
   ],
   "limitations": [
-    "Чтобы убрать приписку, сохрани новый план с выключенной проверкой служебной отметки; старые планы сохраняют режим",
-    "Полный цикл 0.4.5 и плавность панели требуют проверки на физическом Android 16/realme",
-    "Слишком быстрый, повторяющийся или нераспознанный ответ требует ручной проверки; вопросы распознаются эвристически",
-    "Выбранное приложение должно быть открыто, телефон — разблокирован; неизвестная отправка не повторяется автоматически",
-    "Сохраняется прежняя тестовая подпись; локальный ИИ и второй изолированный аккаунт пока не реализованы"
+    "Это восстановленная 0.4.5 с выбором продолжения, а не новый алгоритм распознавания",
+    "Если начало генерации пропущено или ответ не распознан, остаётся ручная проверка",
+    "Приостановленный черновик и неизвестная отправка не повторяются автоматически",
+    "Установка и работа на физическом realme требуют проверки; эмулятор не использовался"
   ],
-  "releaseUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/tag/v0.4.5-preview",
-  "downloadUrl": "https://director-orchestr.pages.dev/downloads/Director-Orchestrator-0.4.5-preview.apk"
+  "releaseUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/tag/v0.4.5-restore-preview",
+  "downloadUrl": "https://director-orchestr.pages.dev/downloads/Director-Orchestrator-0.4.5-restore-preview.apk"
 }

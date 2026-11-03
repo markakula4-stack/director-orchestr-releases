@@ -129,3 +129,17 @@ test('unknown transport variants are rejected before network access', async () =
     throw new Error('Network must not be used');
   } }), /Unsupported preview variant/);
 });
+
+test('restored 0.4.5 has a separate immutable asset and release tag', async () => {
+  const version = '0.4.5-restore-preview';
+  const name = 'Director-Orchestrator-' + version + '.apk';
+  const url = `https://github.com/${repo}/releases/download/v${version}/${name}`;
+  const result = await publishRelease({ ...base,
+    metadata: { ...metadata, variant: 'director', versionName: version, apkUrl: url },
+    request: async (_url, options) => {
+      assert.equal(options.method, undefined);
+      return response({ ...release, tag_name: 'v' + version, assets: [{ ...asset, name, browser_download_url: url }] });
+    }
+  });
+  assert.equal(result.apkUrl, url);
+});
