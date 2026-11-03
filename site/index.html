@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101116">
+  <meta name="description" content="Директор-оркестратор: очередь подготовленных команд для работы с ИИ. Скачайте раннюю Android-версию, посмотрите инструкцию и историю изменений.">
+  <title>Директор-оркестратор — приложение для Android</title>
+  <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+  <script src="/assets/site.js" defer></script>
+  <script src="/assets/demo.js" defer></script>
+  <meta property="og:title" content="Директор-оркестратор — один шаг за другим">
+  <meta property="og:description" content="Очередь подготовленных команд для работы с ИИ. Познакомьтесь с логикой и скачайте базовую версию для Android.">
+  <meta property="og:type" content="website">
+</head>
+<body>
+  <a class="skip" href="#main">К содержимому</a>
+  <div class="announcement"><span class="dot"></span> Проект в разработке <span class="announcement-divider">/</span> Доступна первая базовая версия</div>
+  <div class="nav-shell"><header class="header wrap">
+    <a class="brand" href="#" aria-label="Директор-оркестратор, начало страницы"><img src="/assets/icon.svg" width="36" height="36" alt=""><span>Директор<span class="brand-dot">.</span></span></a>
+    <nav aria-label="Основная навигация" id="navigation">
+      <a href="#demo">Как работает</a><a href="#install">Установка</a><a href="#versions">Скачать</a>
+    </nav>
+    <a class="header-download" href="https://github.com/markakula4-stack/director-orchestr-releases/releases/download/v0.2.0-preview/Director-Orchestrator-0.2.0-core-preview.apk">Скачать APK <span aria-hidden="true">↘</span></a>
+    <button class="menu-button" type="button" aria-controls="navigation" aria-expanded="false" aria-label="Открыть меню"><span></span><span></span></button>
+  </header></div>
+
+  <main id="main">
+    <section class="hero wrap" id="download" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="line"></span> ДИРЕКТОР-ОРКЕСТРАТОР</p>
+        <h1 id="hero-title">У каждой задачи<br>есть <span>следующий шаг.</span></h1>
+        <p class="hero-description">Запиши команды. Задай порядок. Сохраняй прогресс.<br>Твой помощник для последовательной работы с ИИ.</p>
+        <div class="hero-actions" id="hero-download"><a class="button button-primary" href="https://github.com/markakula4-stack/director-orchestr-releases/releases/download/v0.2.0-preview/Director-Orchestrator-0.2.0-core-preview.apk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 16v4h14v-4"/></svg>Скачать для Android</a><a class="text-link" href="#install">Как установить <span aria-hidden="true">↗</span></a></div>
+        <p class="download-meta">0.2.0-preview <span>·</span> Android 8.0+ <span>·</span> 28,5 КиБ</p>
+        <div class="version-note"><span class="note-icon" aria-hidden="true">i</span><p><strong>В этой версии сообщения переносишь ты.</strong><br>Приложение ведёт очередь и проверяет отметки ответа. Автоотправка ещё в разработке.</p></div>
+      </div>
+      <div class="queue-visual" id="demo">
+        <div class="visual-label"><span class="dot blue"></span> ПОПРОБУЙ ЛОГИКУ <span class="example-label">Интерактивное демо</span></div>
+        <div class="queue-window" id="queue-demo" data-state="idle">
+          <div class="window-bar"><span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>director / очередь</span><button id="demo-reset" type="button" aria-label="Сбросить пример" title="Сбросить пример">↺</button></div>
+          <div class="queue-heading"><div><small>ТВОЙ ПЛАН</small><h2>Один шаг за другим</h2></div><span class="steps-counter"><span id="demo-counter">0</span><span class="counter-total">/3</span></span></div>
+          <progress id="demo-progress" max="3" value="0" aria-label="Завершённые этапы примера"></progress>
+          <ol class="example-steps">
+            <li data-step="0" data-state="pending"><span class="step-symbol" aria-hidden="true">01</span><div><small>P01</small><h3>Подготовить задачу</h3><p class="step-description">В очереди</p></div><span class="row-indicator" aria-hidden="true"></span></li>
+            <li data-step="1" data-state="pending"><span class="step-symbol" aria-hidden="true">02</span><div><small>P02</small><h3>Выполнить следующий шаг</h3><p class="step-description">В очереди</p></div><span class="row-indicator" aria-hidden="true"></span></li>
+            <li data-step="2" data-state="pending"><span class="step-symbol" aria-hidden="true">03</span><div><small>P03</small><h3>Собрать результат</h3><p class="step-description">В очереди</p></div><span class="row-indicator" aria-hidden="true"></span></li>
+          </ol>
+          <div class="demo-console"><span class="console-sign" aria-hidden="true">›</span><p id="demo-status" role="status" aria-live="polite" aria-atomic="true">Запусти пример и пройди три этапа.</p></div>
+          <div class="demo-controls"><button class="demo-main" id="demo-primary" type="button">Запустить пример <span aria-hidden="true">→</span></button><button class="demo-question" id="demo-question" type="button" disabled>А если вопрос?</button></div>
+        </div>
+        <p class="visual-caption">Демонстрация будущей автоочереди.<br>Сообщения в чат не отправляются.</p>
+        <noscript><p class="demo-noscript">Для интерактивного примера включи JavaScript. APK можно скачать без него.</p></noscript>
+      </div>
+    </section>
+
+    <section class="current-section wrap" aria-labelledby="current-title">
+      <div class="section-intro"><p class="eyebrow"><span class="section-index">01 /</span> СЕЙЧАС В ПРИЛОЖЕНИИ</p><h2 id="current-title">Меньше потерянных шагов. <br>Больше порядка.</h2></div>
+      <div class="feature-list">
+        <article><span class="feature-number">01</span><div><h3>Три подготовленные команды</h3><p>Запиши шаги заранее. Приложение хранит их вместе с текущим прогрессом.</p></div></article>
+        <article><span class="feature-number">02</span><div><h3>Каждому шагу — свой результат</h3><p>Отметка другого шага или старого запуска не продвинет очередь.</p></div></article>
+        <article><span class="feature-number">03</span><div><h3>Контроль остаётся у тебя</h3><p>При вопросе или ошибке — пауза. После повторного открытия продолжение запускаешь ты.</p></div></article>
+      </div>
+    </section>
+
+    <section class="install-section" id="install" aria-labelledby="install-title"><div class="wrap">
+      <div class="section-heading"><div><p class="eyebrow"><span class="section-index">02 /</span> ПЕРВЫЙ ЗАПУСК</p><h2 id="install-title">Начнём с короткого теста.</h2></div><span class="section-tag">Для Android</span></div>
+      <ol class="install-steps">
+        <li><span class="install-number">1</span><h3>Скачай APK</h3><p>Нажми кнопку скачивания и открой файл на телефоне. Если установка заблокирована, посмотри <a class="inline-link" href="#install-block">пояснение ниже</a>.</p><a href="https://github.com/markakula4-stack/director-orchestr-releases/releases/download/v0.2.0-preview/Director-Orchestrator-0.2.0-core-preview.apk">Скачать файл <span aria-hidden="true">↓</span></a></li>
+        <li><span class="install-number">2</span><h3>Проверь основу</h3><p>Открой «Директор-оркестратор» → «Проверка основы» → «Запустить встроенный тест».</p><span class="expected">Ожидаемый результат: 8 из 8</span></li>
+        <li><span class="install-number">3</span><h3>Пройди три шага</h3><p>Сохрани очередь. Скопируй команду в чат, отметь её отправку и вставь итоговый ответ обратно для проверки.</p><span class="expected">Финал: завершено 3/3</span></li>
+      </ol>
+      <div class="install-footnote">Встроенный тест проверяет логику очереди. Установку на конкретном телефоне и работу с реальным чатом нужно проверить отдельно.</div>
+    </div></section>
+
+    <section class="versions-section wrap" id="versions" aria-labelledby="versions-title">
+      <div class="section-heading"><div><p class="eyebrow"><span class="section-index">03 /</span> ЦЕНТР ЗАГРУЗКИ</p><h2 id="versions-title">Начни с основы.<br><span class="muted-heading">Дальше — шаг за шагом.</span></h2></div><p class="section-aside">Текущая сборка и всё,<br>что нужно для первого запуска.</p></div>
+      <article class="download-card">
+        <div class="release-overview"><div class="release-app"><img src="/assets/icon.svg" width="64" height="64" alt=""><div><span class="release-badge"><span class="dot"></span> РАННИЙ ДОСТУП</span><h3>Директор-оркестратор</h3><p>Базовая версия для Android</p></div></div>
+          <dl class="release-specs"><div><dt>Версия</dt><dd>0.2.0-preview</dd></div><div><dt>Система</dt><dd>Android 8.0+</dd></div><div><dt>Размер</dt><dd>28,5 КиБ</dd></div><div><dt>Обновлено</dt><dd><time datetime="2026-11-03">03.11.2026</time></dd></div></dl>
+          <a class="button button-primary release-download" href="https://github.com/markakula4-stack/director-orchestr-releases/releases/download/v0.2.0-preview/Director-Orchestrator-0.2.0-core-preview.apk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 16v4h14v-4"/></svg>Скачать APK<span aria-hidden="true">↗</span></a><a class="download-help" href="https://github.com/markakula4-stack/director-orchestr-releases/releases/tag/v0.2.0-preview">Версия и файл на GitHub →</a><a class="download-help" href="#install">Первый раз устанавливаешь APK? Инструкция →</a>
+        </div>
+        <div class="release-notes"><p class="eyebrow">ЧТО ЕСТЬ В ЭТОЙ ВЕРСИИ</p><ul class="check-list"><li>Три редактируемые команды</li><li>Ручной перенос сообщений и проверка ответа</li><li>Пауза, журнал и сохранение прогресса</li><li>Встроенная проверка основы</li></ul><div class="release-limitation"><span aria-hidden="true">i</span><p>Автоотправка и мини-ИИ ещё в разработке. Это ранняя сборка с тестовой подписью; установка на realme пока не подтверждена.</p></div><details class="technical-details"><summary>Технические подробности<span aria-hidden="true">+</span></summary><p>79 проверок логики пройдены. У базового APK нет сетевого доступа и службы управления другими приложениями. Размер файла: 29 226 байт.</p></details></div>
+      </article>
+      <div class="roadmap"><div class="roadmap-intro"><span class="eyebrow">КУДА ДВИЖЕМСЯ</span><p>Одна основа.<br>Больше возможностей.</p></div><ol><li class="roadmap-current"><span class="roadmap-point"></span><small>СЕЙЧАС</small><h3>Базовая очередь</h3><p>Ручной перенос и первый тест на телефоне.</p></li><li><span class="roadmap-point"></span><small>СЛЕДУЮЩИЙ ШАГ</small><h3>Автоочередь</h3><p>Отправка команд после подтверждённого результата.</p></li><li><span class="roadmap-point"></span><small>В ПЛАНАХ</small><h3>Мини-ИИ</h3><p>Помощник для оценки результата и выбора следующего шага.</p></li></ol></div>
+    </section>
+
+    <section class="faq-section wrap" aria-labelledby="faq-title"><div><p class="eyebrow"><span class="section-index">04 /</span> ПОЛЕЗНО ЗНАТЬ</p><h2 id="faq-title">Перед установкой.</h2></div><div class="faq-list">
+      <details><summary>Приложение уже пишет в чат само?<span aria-hidden="true">+</span></summary><p>В базовой версии 0.2.0 команды и ответы переносит пользователь. Автоматический адаптер разрабатывается отдельно: его установку и работу в реальном чате ещё предстоит подтвердить.</p></details>
+      <details><summary>Какие данные использует приложение?<span aria-hidden="true">+</span></summary><p>Команды, прогресс и технический журнал сохраняются на телефоне. Вставленный ответ используется для проверки и не записывается в журнал. При копировании команда попадает в системный буфер обмена. У базового APK нет сетевого доступа и службы управления другими приложениями.</p></details>
+      <details id="install-block"><summary>Скачивание с сайта решает блокировку установки?<span aria-hidden="true">+</span></summary><p>Сайт даёт прямую ссылку на файл. Это не подтверждение, что Android разрешит его установить. Если появляется блокировка, сохрани точный текст сообщения: нужно разобрать причину для конкретной сборки.</p></details>
+      <details><summary>Как проверить скачанный файл?<span aria-hidden="true">+</span></summary><p>Контрольная сумма SHA-256 текущего APK:</p><code id="apk-hash">43174a98bbf7c4db420c43d365a05f5f866930e894c01a99d92354a3ad7bd72b</code><button class="copy-hash" type="button">Скопировать SHA-256</button><p>Хеш помогает проверить совпадение файлов. Он не заменяет подпись APK или проверку работы приложения.</p></details>
+    </div></section>
+    <section class="privacy wrap" id="privacy" aria-labelledby="privacy-title"><h2 id="privacy-title">О сайте и данных</h2><p>В коде сайта нет форм входа, рекламных скриптов и аналитики. Сайт размещён на Cloudflare, файлы приложения — в публичном репозитории GitHub Releases. Скачивание APK начинается по нажатию на кнопку. Cloudflare и GitHub могут обрабатывать технические сведения о запросах для работы своих сервисов.</p></section>
+  </main>
+  <footer class="footer wrap"><a class="brand" href="#"><img src="/assets/icon.svg" width="28" height="28" alt=""><span>Директор<span class="brand-dot">.</span></span></a><p>От очереди команд — к оркестратору.</p><span>2026 · В разработке</span></footer>
+  <div class="mobile-download" hidden><div><strong>Директор</strong><span>0.2.0-preview · Android 8.0+</span></div><a class="button button-primary" href="https://github.com/markakula4-stack/director-orchestr-releases/releases/download/v0.2.0-preview/Director-Orchestrator-0.2.0-core-preview.apk">Скачать APK <span aria-hidden="true">↓</span></a></div>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

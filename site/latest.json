@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "applicationId": "app.hashqueue",
+  "variant": "core",
+  "channel": "preview",
+  "versionName": "0.2.0-preview",
+  "versionCode": 2,
+  "minSdkVersion": 26,
+  "releaseDate": "2026-11-03",
+  "apkUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/download/v0.2.0-preview/Director-Orchestrator-0.2.0-core-preview.apk",
+  "sizeBytes": 29226,
+  "sha256": "43174a98bbf7c4db420c43d365a05f5f866930e894c01a99d92354a3ad7bd72b",
+  "changelog": [
+    "Три редактируемые команды и локальный прогресс",
+    "Ручная передача сообщений и проверка отметок ответа",
+    "Пауза, продолжение и встроенный тест восьми сценариев"
+  ],
+  "limitations": [
+    "Автоотправки в этой сборке нет",
+    "Используется тестовая подпись",
+    "Установка на realme ещё не подтверждена"
+  ],
+  "releaseUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/tag/v0.2.0-preview"
+}

@@ -1,0 +1,7 @@
+node_modules/
+site/deploy-info.json
+.env
+.env.*
+*.pem
+*.key
+
