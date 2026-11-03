@@ -32,6 +32,18 @@ export async function publishRelease({ metadata, artifact, notes, repo, commit, 
   }
   const post = body => ({ method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
   let release = await json(api + '/tags/' + encodeURIComponent(tag), {}, true);
+  // Drafts may not have a public tag yet. Reuse a matching authenticated draft.
+  if (!release) {
+    for (let page = 1; page <= 10; page++) {
+      const releases = await json(api + '?per_page=100&page=' + page);
+      assert(Array.isArray(releases));
+      const matches = releases.filter(item => item.tag_name === tag);
+      assert(matches.length <= 1, 'Multiple matching drafts require review.');
+      if (matches.length) { release = matches[0]; break; }
+      if (releases.length < 100) break;
+      assert(page < 10, 'Release history is too large to safely resolve the draft.');
+    }
+  }
   if (!release) release = await json(api, post({ tag_name: tag, target_commitish: commit,
     name: 'Директор-оркестратор ' + metadata.versionName, body: notes,
     draft: true, prerelease: true, make_latest: 'false' }));
@@ -47,11 +59,20 @@ export async function publishRelease({ metadata, artifact, notes, repo, commit, 
   assert.equal(asset.state, 'uploaded');
   assert.equal(asset.size, metadata.sizeBytes, 'Published APK size differs.');
   assert.equal(asset.digest, digest(artifact), 'Published APK checksum differs; refusing to overwrite.');
+  if (release.draft) {
+    await json(api + '/' + release.id, {
+      method: 'PATCH', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ draft: false, prerelease: true, make_latest: 'false' })
+    });
+    release = await json(api + '/' + release.id);
+    asset = release.assets.find(item => item.name === filename);
+    assert(asset, 'Published release has no APK.');
+    assert.equal(asset.state, 'uploaded');
+    assert.equal(asset.size, metadata.sizeBytes);
+    assert.equal(asset.digest, digest(artifact));
+  }
+  // Draft assets use a temporary untagged URL. Only check this after publishing.
   assert.equal(asset.browser_download_url, expectedUrl);
-  if (release.draft) release = await json(api + '/' + release.id, {
-    method: 'PATCH', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ draft: false, prerelease: true, make_latest: 'false' })
-  });
   assert.equal(release.draft, false);
   assert.equal(release.tag_name, tag);
   return { tag, apkUrl: expectedUrl, sha256: metadata.sha256 };

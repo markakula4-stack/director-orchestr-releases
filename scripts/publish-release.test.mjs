@@ -20,11 +20,26 @@ test('new release stays draft until a matching APK is uploaded', async () => {
   await publishRelease({ ...base, request: async (url, options) => {
     calls.push([url, options]);
     if (calls.length === 1) return response({}, 404);
-    if (calls.length === 2) { assert.equal(JSON.parse(options.body).draft, true); return response({ ...release, draft: true, assets: [] }, 201); }
-    if (calls.length === 3) { assert(url.startsWith('https://uploads.github.com/')); assert.equal(options.body, artifact); return response(asset, 201); }
-    assert.equal(options.method, 'PATCH'); assert.equal(JSON.parse(options.body).draft, false); return response(release);
+    if (calls.length === 2) return response([]);
+    if (calls.length === 3) { assert.equal(JSON.parse(options.body).draft, true); return response({ ...release, draft: true, assets: [] }, 201); }
+    if (calls.length === 4) { assert(url.startsWith('https://uploads.github.com/')); assert.equal(options.body, artifact); return response({ ...asset, browser_download_url: apkUrl.replace(tag, 'untagged-temporary') }, 201); }
+    if (calls.length === 5) { assert.equal(options.method, 'PATCH'); assert.equal(JSON.parse(options.body).draft, false); }
+    else assert.equal(options.method, undefined);
+    return response(release);
   } });
-  assert.equal(calls.length, 4);
+  assert.equal(calls.length, 6);
+});
+
+test('an uploaded draft with a temporary URL is resumed without duplicate upload', async () => {
+  const methods = [];
+  const draft = { ...release, draft: true, assets: [{ ...asset, browser_download_url: apkUrl.replace(tag, 'untagged-temporary') }] };
+  await publishRelease({ ...base, request: async (_url, options) => {
+    methods.push(options.method ?? 'GET');
+    if (methods.length === 1) return response({}, 404);
+    if (methods.length === 2) return response([draft]);
+    return response(release);
+  } });
+  assert.deepEqual(methods, ['GET', 'GET', 'PATCH', 'GET']);
 });
 
 test('retry verifies an existing asset without any write', async () => {
