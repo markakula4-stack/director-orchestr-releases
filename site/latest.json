@@ -3,24 +3,26 @@
   "applicationId": "app.hashqueue",
   "variant": "director",
   "channel": "preview",
-  "versionName": "0.4.2-preview",
-  "versionCode": 7,
+  "versionName": "0.4.3-preview",
+  "versionCode": 8,
   "minSdkVersion": 26,
   "releaseDate": "2026-11-03",
-  "apkUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/download/v0.4.2-preview/Director-Orchestrator-0.4.2-preview.apk",
-  "sizeBytes": 62070,
-  "sha256": "fec8826fb09ca07ad82a0ac19baae9f81f40017b45e1f65f1a018cda656bffdb",
+  "apkUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/download/v0.4.3-preview/Director-Orchestrator-0.4.3-preview.apk",
+  "sizeBytes": 74358,
+  "sha256": "33652159701119d3bf2cd63048692635d9d7ee1e04a48665c3a810cc58189463",
   "changelog": [
-    "Исправлен NullPointerException при создании окна на Android 16",
-    "Настройка системных панелей выполняется после создания содержимого окна",
-    "Сохранены диагностика запуска, план и прежняя подпись обновления"
+    "Компактная панель с перетаскиванием, закрытием и синей подсветкой во время работы",
+    "Автоматический следующий шаг или подтверждение каждого шага — на твой выбор",
+    "Настройки задержки, времени ожидания, экрана, подсветки и размера панели",
+    "Закрытая панель остаётся скрытой до открытия из Директора",
+    "Понятные подписи и удаление собственного неизменённого черновика после остановки"
   ],
   "limitations": [
-    "Запуск исправления на realme и полный цикл автоочереди ещё требуют проверки на телефоне",
+    "Новая панель и автоочередь 0.4.3 ещё требуют проверки на телефоне; запуск 0.4.2 владелец подтвердил",
     "Для автоочереди ChatGPT должен быть открыт, телефон — разблокирован",
     "Неизвестный исход отправки останавливает очередь без автоматического повтора",
     "Используется прежняя тестовая подпись; мини-ИИ не реализован"
   ],
-  "releaseUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/tag/v0.4.2-preview",
-  "downloadUrl": "https://director-orchestr.pages.dev/downloads/Director-Orchestrator-0.4.2-preview.apk"
+  "releaseUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/tag/v0.4.3-preview",
+  "downloadUrl": "https://director-orchestr.pages.dev/downloads/Director-Orchestrator-0.4.3-preview.apk"
 }
