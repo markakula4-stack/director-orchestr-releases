@@ -3,26 +3,25 @@
   "applicationId": "app.hashqueue",
   "variant": "director",
   "channel": "preview",
-  "versionName": "0.4.7-preview",
-  "versionCode": 13,
+  "versionName": "0.4.8-preview",
+  "versionCode": 14,
   "minSdkVersion": 26,
   "releaseDate": "2026-11-04",
-  "apkUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/download/v0.4.7-preview/Director-Orchestrator-0.4.7-preview.apk",
+  "apkUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/download/v0.4.8-preview/Director-Orchestrator-0.4.8-preview.apk",
   "sizeBytes": 98934,
-  "sha256": "489f2686b0f16ef59ce38013a67dc3d10c80b9630db052b2a9b0815da53866e5",
+  "sha256": "91a8157db24a07ab15afc41539589e46a00587cd56b1bc9d06db3415ba708d70",
   "changelog": [
-    "Точный текст команды без служебной приписки, включая сохранённые планы",
-    "Распознавание подсказок, вложенных полей и действий отправки DeepSeek",
-    "Короткие ответы, обычные приветствия и дословные ответы проходят к следующему шагу",
-    "Автопрокрутка не останавливает очередь; проверяется результат предыдущего шага",
-    "Сохранение известной отправки при открытии плана и работающая ручная проверка"
+    "Ожидание восстановления поля сообщения между шагами без повторной отправки",
+    "Чтение ответа при отключённом поле, включая нативные и виртуальные редакторы",
+    "Повторное чтение недоступного интерфейса Android и понятные причины паузы",
+    "Ручная проверка отличает попытку отправки от готового ответа и показывает команду"
   ],
   "limitations": [
-    "973 JVM-проверки и сценария, включая 250 проверок последовательности; физический realme ещё не проверен",
-    "Старый незавершённый черновик очищается по нажатию; уже отправленная команда не повторяется",
-    "Кнопки без распознаваемого действия и неясные ответы требуют проверки пользователем",
-    "Вопросы распознаются эвристически; нет семантической локальной ИИ-модели"
+    "1090 JVM-проверок и сценариев; живой цикл на realme ещё требует проверки",
+    "Уже начатый шаг после обновления может требовать ручной проверки без автоматического повтора",
+    "Вопросы, лимиты и неоднозначный интерфейс могут поставить очередь на паузу",
+    "Изменение интерфейса стороннего приложения может потребовать настройки адаптера"
   ],
-  "releaseUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/tag/v0.4.7-preview",
-  "downloadUrl": "https://director-orchestr.pages.dev/downloads/Director-Orchestrator-0.4.7-preview.apk"
+  "releaseUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/tag/v0.4.8-preview",
+  "downloadUrl": "https://director-orchestr.pages.dev/downloads/Director-Orchestrator-0.4.8-preview.apk"
 }
