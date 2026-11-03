@@ -3,27 +3,27 @@
   "applicationId": "app.hashqueue",
   "variant": "director",
   "channel": "preview",
-  "versionName": "0.4.4-preview",
-  "versionCode": 9,
+  "versionName": "0.4.5-preview",
+  "versionCode": 10,
   "minSdkVersion": 26,
   "releaseDate": "2026-11-03",
-  "apkUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/download/v0.4.4-preview/Director-Orchestrator-0.4.4-preview.apk",
-  "sizeBytes": 82550,
-  "sha256": "da3553c0ead29817cfd2b40d2d34eae7359292bad637fc7d07f0ac13a8269106",
+  "apkUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/download/v0.4.5-preview/Director-Orchestrator-0.4.5-preview.apk",
+  "sizeBytes": 90742,
+  "sha256": "eaa144d843b7e1cc54a5c2762d0eb2914306cccf34937d77a4988a2d267837fa",
   "changelog": [
-    "Выбор ChatGPT, DeepSeek или Claude и открытие нужного приложения",
-    "Раздельные задержки: 3 секунды до первой вставки, 3 до отправки и 5 до следующего шага",
-    "Таймеры текущего ответа, всего запуска, пауз и обратный отсчёт",
-    "Привязка запуска к выбранному приложению и остановка при изменении цели",
-    "Проверка итоговой отметки вместе с состоянием интерфейса, просмотр отправляемого текста"
+    "Обычный новый план отправляет точный текст без служебной приписки",
+    "Исправлен поиск длинного поля ввода и вложенной кнопки отправки, убрана ложная пауза при появлении клавиатуры",
+    "Автопереход по новому завершённому ответу; защита от старого ответа после прокрутки",
+    "Удержание экрана при открытой панели, включая паузу",
+    "Меньше чтений интерфейса и перерисовок; пресет задержек 3 / 3 / 0"
   ],
   "limitations": [
-    "Все три адаптера требуют отдельной проверки живого интерфейса на телефоне; первая приёмка — DeepSeek",
-    "Для продолжения требуется уникальная итоговая отметка шага; к команде добавляется видимая инструкция",
-    "Выбранное приложение должно быть открыто, телефон — разблокирован",
-    "Неизвестный исход отправки останавливает очередь без автоматического повтора",
+    "Чтобы убрать приписку, сохрани новый план с выключенной проверкой служебной отметки; старые планы сохраняют режим",
+    "Полный цикл 0.4.5 и плавность панели требуют проверки на физическом Android 16/realme",
+    "Слишком быстрый, повторяющийся или нераспознанный ответ требует ручной проверки; вопросы распознаются эвристически",
+    "Выбранное приложение должно быть открыто, телефон — разблокирован; неизвестная отправка не повторяется автоматически",
     "Сохраняется прежняя тестовая подпись; локальный ИИ и второй изолированный аккаунт пока не реализованы"
   ],
-  "releaseUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/tag/v0.4.4-preview",
-  "downloadUrl": "https://director-orchestr.pages.dev/downloads/Director-Orchestrator-0.4.4-preview.apk"
+  "releaseUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/tag/v0.4.5-preview",
+  "downloadUrl": "https://director-orchestr.pages.dev/downloads/Director-Orchestrator-0.4.5-preview.apk"
 }
