@@ -3,22 +3,23 @@
   "applicationId": "app.hashqueue",
   "variant": "core",
   "channel": "preview",
-  "versionName": "0.2.0-preview",
-  "versionCode": 2,
+  "versionName": "0.3.1-preview",
+  "versionCode": 4,
   "minSdkVersion": 26,
   "releaseDate": "2026-11-03",
-  "apkUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/download/v0.2.0-preview/Director-Orchestrator-0.2.0-core-preview.apk",
-  "sizeBytes": 29226,
-  "sha256": "43174a98bbf7c4db420c43d365a05f5f866930e894c01a99d92354a3ad7bd72b",
+  "apkUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/download/v0.3.1-preview/Director-Orchestrator-0.3.1-core-preview.apk",
+  "sizeBytes": 41590,
+  "sha256": "8d24a7428fbb4a2cb757630aa971e580e5895fc2d8eb84ce3f93528440a5f614",
   "changelog": [
-    "Три редактируемые команды и локальный прогресс",
-    "Ручная передача сообщений и проверка отметок ответа",
-    "Пауза, продолжение и встроенный тест восьми сценариев"
+    "Редактор плана: до 20 команд и 8 000 символов в каждом шаге",
+    "Обновлённый интерфейс: очередь, журнал и сведения о проекте",
+    "Исправление утечки окна при пересоздании экрана; повторная проверка ещё нужна"
   ],
   "limitations": [
     "Автоотправки в этой сборке нет",
     "Используется тестовая подпись",
+    "Полный прогон Android-тестов и проверка исправления ещё не завершены",
     "Установка на realme ещё не подтверждена"
   ],
-  "releaseUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/tag/v0.2.0-preview"
+  "releaseUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/tag/v0.3.1-preview"
 }

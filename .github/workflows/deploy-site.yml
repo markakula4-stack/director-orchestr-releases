@@ -6,6 +6,7 @@ on:
     paths:
       - 'site/**'
       - 'scripts/**'
+      - 'releases/**'
       - '.github/workflows/deploy-site.yml'
   workflow_dispatch:
 
@@ -17,7 +18,33 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  release:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout source and verified APK
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Validate website and release publishing
+        run: |
+          node scripts/validate-site.mjs
+          node --test scripts/publish-release.test.mjs
+      - name: Publish verified preview APK to GitHub Releases
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/publish-release.mjs
+
   deploy:
+    needs: release
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 10
