@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
+import { withdraw046 } from './withdraw-0.4.6.mjs';
 
 const expectedRepo = 'markakula4-stack/director-orchestr-releases';
 const digest = bytes => 'sha256:' + createHash('sha256').update(bytes).digest('hex');
@@ -11,6 +12,7 @@ export async function publishRelease({ metadata, artifact, notes, repo, commit, 
   assert.match(commit ?? '', /^[a-f0-9]{40}$/);
   assert(token, 'Missing GITHUB_TOKEN.');
   assert.equal(metadata.channel, 'preview');
+  assert.notEqual(metadata.versionName, '0.4.6-preview', '0.4.6 was withdrawn by its owner.');
   assert(['core', 'director'].includes(metadata.variant), 'Unsupported preview variant.');
   const version = /^([0-9]+\.[0-9]+\.[0-9]+)-preview$/.exec(metadata.versionName);
   assert(version, 'Only explicit preview releases are supported.');
@@ -87,4 +89,5 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     notes: readFileSync(directory + '/NOTES.md', 'utf8'), repo: process.env.GITHUB_REPOSITORY,
     commit: process.env.GITHUB_SHA, token: process.env.GITHUB_TOKEN });
   console.log('APK release is published and verified: ' + result.apkUrl);
+  console.log(await withdraw046({ repo: process.env.GITHUB_REPOSITORY, token: process.env.GITHUB_TOKEN }));
 }

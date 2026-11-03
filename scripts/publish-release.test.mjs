@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { publishRelease } from './publish-release.mjs';
+import { withdraw046 } from './withdraw-0.4.6.mjs';
 
 const repo = 'markakula4-stack/director-orchestr-releases';
 const artifact = Buffer.from('isolated release test fixture');
@@ -14,6 +15,35 @@ const release = { id: 1, tag_name: tag, prerelease: true, draft: false, assets: 
 const metadata = { channel: 'preview', variant: 'core', versionName: '0.3.1-preview', apkUrl, sizeBytes: artifact.length, sha256 };
 const base = { metadata, artifact, notes: 'Test release notes', repo, commit: 'a'.repeat(40), token: 'fixture-token' };
 const response = (body, status = 200) => new Response(JSON.stringify(body), { status });
+
+test('only the reviewed 0.4.6 release and tag are withdrawn and then checked', async () => {
+  const deleted = [];
+  await withdraw046({ repo, token: 'fixture-token', request: async (url, options) => {
+    if (options.method === 'DELETE') { deleted.push(url); return new Response(null, { status: 204 }); }
+    if (deleted.length === 2) return response({}, 404);
+    if (url.endsWith('/releases/tags/v0.4.6-preview')) return response({ id: 433213929, tag_name: 'v0.4.6-preview', prerelease: true, assets: [{ name: 'Director-Orchestrator-0.4.6-preview.apk' }] });
+    return response({ ref: 'refs/tags/v0.4.6-preview', object: { sha: 'c4896c3cadc67e286a91838ada6f3fc8531752dd', type: 'commit' } });
+  } });
+  assert.deepEqual(deleted, [`https://api.github.com/repos/${repo}/releases/433213929`, `https://api.github.com/repos/${repo}/git/refs/tags/v0.4.6-preview`]);
+});
+
+test('withdrawal is idempotent when release and tag are already absent', async () => {
+  await withdraw046({ repo, token: 'fixture-token', request: async (_url, options) => {
+    assert.notEqual(options.method, 'DELETE'); return response({}, 404);
+  } });
+});
+
+test('a moved 0.4.6 tag prevents every deletion', async () => {
+  await assert.rejects(withdraw046({ repo, token: 'fixture-token', request: async (url, options) => {
+    assert.notEqual(options.method, 'DELETE');
+    if (url.includes('/releases/')) return response({ id: 433213929, tag_name: 'v0.4.6-preview', prerelease: true, assets: [] });
+    return response({ ref: 'refs/tags/v0.4.6-preview', object: { sha: 'f'.repeat(40), type: 'commit' } });
+  } }), /tag moved/);
+});
+
+test('withdrawn 0.4.6 cannot be republished', async () => {
+  await assert.rejects(publishRelease({ ...base, metadata: { ...metadata, versionName: '0.4.6-preview' }, request: async () => { throw new Error('Network must not be used'); } }), /withdrawn/);
+});
 
 test('new release stays draft until a matching APK is uploaded', async () => {
   const calls = [];
