@@ -3,24 +3,24 @@
   "applicationId": "app.hashqueue",
   "variant": "director",
   "channel": "preview",
-  "versionName": "0.4.1-preview",
-  "versionCode": 6,
+  "versionName": "0.4.2-preview",
+  "versionCode": 7,
   "minSdkVersion": 26,
   "releaseDate": "2026-11-03",
-  "apkUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/download/v0.4.1-preview/Director-Orchestrator-0.4.1-preview.apk",
+  "apkUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/download/v0.4.2-preview/Director-Orchestrator-0.4.2-preview.apk",
   "sizeBytes": 62070,
-  "sha256": "63deb2a95997a15c14d9009784a05a523742b3b91db7022fbb4a37d591f2a112",
+  "sha256": "fec8826fb09ca07ad82a0ac19baae9f81f40017b45e1f65f1a018cda656bffdb",
   "changelog": [
-    "Создание панели после подключения службы, отдельный оконный контекст и тема Android",
-    "Остановка автоочереди при сбое и доступная из приложения диагностика запуска",
-    "Экран восстановления после ошибки интерфейса; план сохраняется без автоматического продолжения"
+    "Исправлен NullPointerException при создании окна на Android 16",
+    "Настройка системных панелей выполняется после создания содержимого окна",
+    "Сохранены диагностика запуска, план и прежняя подпись обновления"
   ],
   "limitations": [
-    "Исправления запуска ещё требуют проверки на realme Android 16; причина сбоя 0.4.0 на телефоне не подтверждена журналом",
+    "Запуск исправления на realme и полный цикл автоочереди ещё требуют проверки на телефоне",
     "Для автоочереди ChatGPT должен быть открыт, телефон — разблокирован",
     "Неизвестный исход отправки останавливает очередь без автоматического повтора",
     "Используется прежняя тестовая подпись; мини-ИИ не реализован"
   ],
-  "releaseUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/tag/v0.4.1-preview",
-  "downloadUrl": "https://director-orchestr.pages.dev/downloads/Director-Orchestrator-0.4.1-preview.apk"
+  "releaseUrl": "https://github.com/markakula4-stack/director-orchestr-releases/releases/tag/v0.4.2-preview",
+  "downloadUrl": "https://director-orchestr.pages.dev/downloads/Director-Orchestrator-0.4.2-preview.apk"
 }
